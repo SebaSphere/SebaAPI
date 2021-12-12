@@ -4,6 +4,7 @@
   "package": "dev.sebastianb.sebaapi.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "MinecraftServerMixin"
   ],
   "client": [
   ],

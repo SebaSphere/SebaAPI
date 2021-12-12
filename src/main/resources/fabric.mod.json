@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "sapi",
-  "version": "${version}",
+  "version": "1.0-SNAPSHOT",
   "name": "SebaAPI",
   "description": "",
   "authors": [],
