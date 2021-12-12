@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "wackyconcerns",
+  "version": "${version}",
+  "name": "WackyConcerns",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/wackyconcerns/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "dev.sebastianb.wackyconcerns.client.WackyConcernsClient"
+    ],
+    "main": [
+      "dev.sebastianb.wackyconcerns.WackyConcerns"
+    ]
+  },
+  "mixins": [
+    "wackyconcerns.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.12.11",
+    "fabric": "*",
+    "minecraft": "1.18.1",
+    "sapi": "*"
+  }
+}
