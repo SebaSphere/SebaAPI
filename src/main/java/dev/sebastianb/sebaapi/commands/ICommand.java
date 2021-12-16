@@ -12,15 +12,14 @@ public interface ICommand {
 
     String commandName();
 
-    // IMPORTANT:
-    // You should make your own interface for your command that overrides this method
-    // THIS IS SO YOU CAN REGISTER YOUR COMMANDS AND WE KNOW WHICH MOD THIS IS FROM
-    // methods such as commandInfo() are used to get the translated strings for the command (TranslatableText.class)
+    // gets the mod id from the super class implementing this interface
     default String modId() {
         return SebaUtils.FabricTools.getDeclaredClassModID(this.getClass().getSuperclass());
     }
 
     LiteralArgumentBuilder<ServerCommandSource> registerNode();
+
+    // methods such as commandInfo() are used to get the translated strings for the command (TranslatableText.class)
 
     /**
      * Short summary about what the command does
