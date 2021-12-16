@@ -2,6 +2,10 @@ package dev.sebastianb.sebaapi.utils;
 
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.context.CommandContext;
+import com.terraformersmc.modmenu.ModMenuModMenuCompat;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -34,6 +38,27 @@ public class SebaUtils {
             context.getSource().sendFeedback(message, broadcastToOps);
         }
 
+    }
+
+    public static class FabricTools {
+
+        public static String getDeclaredClassModID(Class<?> modClass) {
+            if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+                // pretty sure this might not be possible but "I tried"
+                var commandClassLocation = modClass.getProtectionDomain().getCodeSource().getLocation();
+                System.out.println(commandClassLocation);
+
+                FabricLoader.getInstance().getAllMods().forEach(mod -> {
+                    mod.getPath("fabric.mod.json").forEach(modFile -> {
+                        System.out.println(mod.getMetadata().getId() + " " + modFile.toUri());
+                    });
+                });
+
+                return null;
+            } else {
+                return null;
+            }
+        }
     }
 
     // https://www.rapidtables.com/convert/number/hex-to-decimal.html
