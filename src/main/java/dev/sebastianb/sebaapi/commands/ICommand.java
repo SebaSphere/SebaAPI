@@ -1,12 +1,8 @@
 package dev.sebastianb.sebaapi.commands;
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.context.CommandContext;
 import dev.sebastianb.sebaapi.utils.SebaUtils;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TextColor;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 
 public interface ICommand {
 
@@ -14,7 +10,7 @@ public interface ICommand {
 
     // gets the mod id from the super class implementing this interface
     default String modId() {
-        return SebaUtils.FabricTools.getDeclaredClassModID(this.getClass().getSuperclass());
+        return SebaUtils.FabricTools.getDeclaredClassModID(this.getClass());
     }
 
     LiteralArgumentBuilder<ServerCommandSource> registerNode();

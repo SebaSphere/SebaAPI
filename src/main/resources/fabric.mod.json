@@ -9,6 +9,7 @@
   "license": "MIT",
   "icon": "assets/sapi/icon.png",
   "environment": "*",
+  "accessWidener" : "sapi.accesswidener",
   "entrypoints": {
     "client": [
       "dev.sebastianb.sebaapi.client.SebaAPIClient"

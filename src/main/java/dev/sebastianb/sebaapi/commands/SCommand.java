@@ -25,7 +25,6 @@ public class SCommand {
 
     private static final ArrayList<ICommand> commands = new ArrayList<>();
 
-
     /**
      * Any mod can call this command and add any command that implements the ICommand interface.
      *
@@ -45,11 +44,10 @@ public class SCommand {
                 dispatcher.register(builder);
             } else {
                 SebaAPI.LOGGER.warning(
-                        "Command " + command.commandName() + " has no ModID set. It will not be registered.\n"
+                        "Command " + command.commandName() + " has no ModID set. It will not be registered."
                 );
             }
         }
     }
-
 
 }
