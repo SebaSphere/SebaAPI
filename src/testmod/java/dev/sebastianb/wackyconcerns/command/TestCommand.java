@@ -8,7 +8,7 @@ import dev.sebastianb.sebaapi.utils.SebaUtils;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 
-public class TestCommand implements WackyCommand {
+public class TestCommand implements ICommand {
 
     @Override
     public String commandName() {
@@ -23,17 +23,11 @@ public class TestCommand implements WackyCommand {
 
     private static int doThing(CommandContext<ServerCommandSource> serverCommandSourceCommandContext) {
         try {
-            // haha this doesn't work
-            SebaUtils.FabricTools.getDeclaredClassModID(getInstance().getClass());
+            System.out.println(SebaUtils.FabricTools.getDeclaredClassModID(TestCommand.class));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return Command.SINGLE_SUCCESS;
-    }
-
-    // get instance of class
-    public static ICommand getInstance() {
-        return new TestCommand();
     }
 
 }

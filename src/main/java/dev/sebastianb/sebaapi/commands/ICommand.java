@@ -2,6 +2,7 @@ package dev.sebastianb.sebaapi.commands;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import dev.sebastianb.sebaapi.utils.SebaUtils;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TextColor;
@@ -16,7 +17,7 @@ public interface ICommand {
     // THIS IS SO YOU CAN REGISTER YOUR COMMANDS AND WE KNOW WHICH MOD THIS IS FROM
     // methods such as commandInfo() are used to get the translated strings for the command (TranslatableText.class)
     default String modId() {
-        return null;
+        return SebaUtils.FabricTools.getDeclaredClassModID(this.getClass().getSuperclass());
     }
 
     LiteralArgumentBuilder<ServerCommandSource> registerNode();

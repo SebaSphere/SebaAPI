@@ -2,7 +2,7 @@ package dev.sebastianb.sebaapi.utils;
 
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.context.CommandContext;
-import com.terraformersmc.modmenu.ModMenuModMenuCompat;
+import dev.sebastianb.sebaapi.SebaAPI;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
@@ -42,22 +42,34 @@ public class SebaUtils {
 
     public static class FabricTools {
 
+        /**
+         * @param modClass any specific class in your mod that you want to find the modID for
+         * @return the mod ID of the mod that contains the given class
+         */
         public static String getDeclaredClassModID(Class<?> modClass) {
-            if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-                // pretty sure this might not be possible but "I tried"
-                var commandClassLocation = modClass.getProtectionDomain().getCodeSource().getLocation();
-                System.out.println(commandClassLocation);
+            var commandClassLocation = modClass.getProtectionDomain().getCodeSource().getLocation();
+            // FIXME:
+            //  Right now, this assumes every mod has a "main" entrypoint.
+            //  This is not true for every mod because some mods may have custom or serverside/client side entrypoints.
+            //  See fabric docs for more info here: https://fabricmc.net/wiki/documentation:entrypoint
+            List<EntrypointContainer<ModInitializer>> modEntryPoints = FabricLoader.getInstance().getEntrypointContainers("main", ModInitializer.class);
 
-                FabricLoader.getInstance().getAllMods().forEach(mod -> {
-                    mod.getPath("fabric.mod.json").forEach(modFile -> {
-                        System.out.println(mod.getMetadata().getId() + " " + modFile.toUri());
-                    });
-                });
-
-                return null;
-            } else {
-                return null;
+            for (EntrypointContainer<ModInitializer> entrypointContainer : modEntryPoints) {
+                try {
+                    var modMainClassLocation = entrypointContainer.getEntrypoint().getClass().getProtectionDomain().getCodeSource().getLocation();
+                    if (modMainClassLocation.equals(commandClassLocation)) {
+                        return entrypointContainer.getProvider().getMetadata().getId();
+                    }
+                } catch (Exception e) {
+                    // prob hacky but some mods seem to throw exceptions similar to the following:
+                    // java.lang.NullPointerException: Cannot invoke "java.security.CodeSource.getLocation()" because the return value of "java.security.ProtectionDomain.getCodeSource()" is null
+                    if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+                        e.printStackTrace();
+                        SebaAPI.LOGGER.warning(entrypointContainer.getProvider().getMetadata().getName() + " is null? Please report to " + SebaAPI.MOD_ID + " devs if this is your mod! I wanna know what you did");
+                    }
+                }
             }
+            throw new IllegalArgumentException("No mod found for class " + modClass.getName() + "! Is this correct?");
         }
     }
 
