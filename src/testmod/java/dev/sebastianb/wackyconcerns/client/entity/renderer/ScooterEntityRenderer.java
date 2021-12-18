@@ -30,11 +30,10 @@ public class ScooterEntityRenderer extends EntityRenderer<Entity> {
         matrices.push(); {
             matrices.translate(-0.5 * scale,0,-1.7 * scale);
             matrices.scale(scale,scale, scale);
-            Quaternion rotation = Vec3f.NEGATIVE_X.getDegreesQuaternion(entity.age * 2);
+            Quaternion rotation = Vec3f.POSITIVE_X.getDegreesQuaternion(entity.age * 2);
             float degrees = MathHelper.wrapDegrees(entity.age * 2);
             // circle around (I'm still trying to make this circle like a wheel)
             // System.out.println(degrees + " " + rotation.getX());
-            matrices.translate(0,0, 0);
 
 
             matrices.multiply(rotation);
