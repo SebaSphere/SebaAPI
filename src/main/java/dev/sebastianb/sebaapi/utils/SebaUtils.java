@@ -73,6 +73,14 @@ public class SebaUtils {
         }
     }
 
+    public static class NbtTools {
+        // This method is used to write a set of values to an NBT tag compound
+        public static void writeNBTArray() {
+
+        }
+
+    }
+
     // https://www.rapidtables.com/convert/number/hex-to-decimal.html
     public static class Colors {
 

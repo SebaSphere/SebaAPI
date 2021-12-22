@@ -1,5 +1,6 @@
 package dev.sebastianb.sebaapi;
 
+import dev.sebastianb.sebaapi.teams.STeams;
 import net.fabricmc.api.ModInitializer;
 
 import java.util.logging.Logger;
@@ -12,6 +13,6 @@ public class SebaAPI implements ModInitializer {
 
     @Override
     public void onInitialize() {
-
+        STeams.register();
     }
 }
